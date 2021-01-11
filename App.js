@@ -1,21 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function App() {
+  const [euros,setEuros] = useState('');
+  const [pounds,setPounds] = useState(0);
+
+  function change(text) {
+    setEuros(text);
+    const result = text.replace(',','.') * 0.9;
+    setPounds(result);
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.field}>Euros</Text>
+      <TextInput style={styles.field} value={euros} onChangeText={text => change(text)} 
+      keyboardType='decimal-pad'/>
+      <Text style={styles.field}>Pounds</Text>
+      <Text style={styles.field}>{pounds.toFixed(2)}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop:50,
+    marginLeft: 10,
   },
+  field: {
+    marginBottom: 10,
+  }
 });
+
+
+/*
+  function change(text) {
+    setEuros(text);
+    const result = text.replace(',','.') * 0.9;
+    setPounds(result);
+  }
+
+   function calculate() {
+    const result = euros.replace(',','.') * 0.9;
+    setPounds(result);
+  }
+*/
